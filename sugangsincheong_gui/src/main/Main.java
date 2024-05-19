@@ -1,6 +1,6 @@
 package main;
 
-import View.VMainFrame;
+import view.VMainFrame;
 
 public class Main {
 	private VMainFrame vMainFrame;
@@ -10,13 +10,14 @@ public class Main {
 		this.vMainFrame.setVisible(true);
 	}
 	public void initialize() {
+		this.vMainFrame.initailize();
 	}
 	public void run() {
 	}
 
 	public static void main(String[] args) {
 		Main main = new Main();
-		
+		main.initialize();
 		main.run();
 	}
 

@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;
@@ -11,7 +11,6 @@ public class VMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private VSugangSincheong vSugangSincheong;
-	private VCampus vCampus;
 
 	public VMainFrame() throws HeadlessException {
 		this.setTitle("수강신청"); //이 코드는 변화하지 않음. 변화 가능한 코드로 짜야함
@@ -19,12 +18,16 @@ public class VMainFrame extends JFrame {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize(dim.width*2/3, dim.height*2/3);
 		this.setLocationRelativeTo(null);
-
-		this.vCampus = new VCampus();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//components
 		this.vSugangSincheong = new VSugangSincheong();
 		this.add(vSugangSincheong);
+		
+	}
+
+	public void initailize() {
+		this.vSugangSincheong.initialize();
 		
 	}
 

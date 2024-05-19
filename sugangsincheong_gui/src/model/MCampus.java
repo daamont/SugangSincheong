@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 //components
 public class MCampus { // 파일을 고대로 반영함
