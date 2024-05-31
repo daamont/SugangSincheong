@@ -14,12 +14,13 @@ public class DAOLecture {
 
 	private MDepartment mDepartment;
 
-	public Vector<model.MLecture> getList() {
+	public Vector<model.MLecture> getList(String filename) {
 		
 		Vector<MLecture> mLectureList = new Vector<MLecture>();
 
 		try {
-			File file = new File("data/"+mDepartment.getLink());
+			File file = new File("data/"+filename+".txt");
+//			File file = new File("data/"+mDepartment.getLink());
 			Scanner scr = new Scanner(file);
 			while (scr.hasNextLine()) {
 				// deserialize
@@ -32,6 +33,7 @@ public class DAOLecture {
 				mLecture.setProfessor(wordList[2]);
 				mLecture.setCredit(Integer.parseInt(wordList[3]));
 				mLecture.setTime(wordList[4]);
+//				System.out.println(wordList[1]);
 
 				mLectureList.add(mLecture);
 
@@ -42,6 +44,11 @@ public class DAOLecture {
 		}
 		return mLectureList;
 
+	}
+
+	public Vector<MLecture> getListByDepartment(int dpartId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

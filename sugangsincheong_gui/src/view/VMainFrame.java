@@ -7,13 +7,15 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Constants.Constant.MainFrame;
+
 public class VMainFrame extends JFrame {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = MainFrame.VERSION_NUM;
 	
 	private VSugangSincheong vSugangSincheong;
 
 	public VMainFrame() throws HeadlessException {
-		this.setTitle("수강신청"); //이 코드는 변화하지 않음. 변화 가능한 코드로 짜야함
+		this.setTitle(MainFrame.TITLE);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize(dim.width*2/3, dim.height*2/3);

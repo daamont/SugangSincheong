@@ -1,13 +1,13 @@
 package model;
 
-//components
-public class MCampus { // 파일을 고대로 반영함
+public class MDepartment {
+
+	public MDepartment() {
+		// TODO Auto-generated constructor stub
+	}
 	private int id;
 	private String name;
 	private String link;
-
-	public MCampus() {
-	}
 
 	public int getId() {
 		return id;

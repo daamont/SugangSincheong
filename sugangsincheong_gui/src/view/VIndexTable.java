@@ -4,12 +4,16 @@ import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI.ListSelectionHandler;
 import javax.swing.table.DefaultTableModel;
 
-import control.CCampus;
-import model.MCampus;
+import control.CIndex;
+import model.MIndex;
+import model.MLecture;
 
-public class VIndexTable extends JScrollPane { // 안에 자식이 table과 model이 있
+public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 자식이 table과 model이 있
 	// attributes
 	private static final long serialVersionUID = 1L;
 
@@ -18,56 +22,79 @@ public class VIndexTable extends JScrollPane { // 안에 자식이 table과 mode
 	private DefaultTableModel model;
 
 	// associations
-	private VIndexTable next;
-	
-	public Vector<MCampus> mCampusList;
+	private IIndexTable next;
 
-	public void setNext(VIndexTable next) {
-		this.next = next;
-	}
+	private Vector<MIndex> mIndexList;
+
 
 	// methods
-	public VIndexTable(String type) {
+	public VIndexTable(String[] header) {
 		// components
 		// table
 		this.table = new JTable();
 		this.setViewportView(this.table); // 이 함수를 써서 자식을 만듦
 
 		// model
-		String[] campus_header = { "아이디", type };
-		this.model = new DefaultTableModel(null, campus_header);
+		this.model = new DefaultTableModel(null, header);
 
 		// associate
 		this.table.setModel(model);
 
+		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
+		this.table.getSelectionModel().addListSelectionListener(listSelectionHandler);
+		this.mIndexList = new Vector<MIndex>();
 	}
 
+	public void setNext(IIndexTable next) {
+		this.next = next;
+	}
+	
 	public void show(String fileName) {
 		// get data
-		CCampus cCampus = new CCampus();
-		mCampusList = cCampus.getList(fileName); // CCampus에게 전달해서 MCampus에게 전
-		for (MCampus mCampus : mCampusList) {
+		CIndex cINdex = new CIndex();
+		mIndexList = cINdex.getList(fileName); // CCampus에게 전달해서 MCampus에게 전달
+		this.model.setRowCount(0);
+
+		for (MIndex mIndex : mIndexList) {
 			String[] row = new String[2];
-			row[0] = String.valueOf(mCampus.getId());
-			row[1] = mCampus.getName();
+			row[0] = String.valueOf(mIndex.getId());
+			row[1] = mIndex.getName();
 
 			this.model.addRow(row);
 
 		}
-//		if (this.next != null) {
-//			this.next.show(mCampusList.get(0).getLink()); // 0번째 가져오기
-//		}
 	}
 
 	public void initialize() {
 
 	}
-	
+
+	public void showNext(int rowIndex) {
+		if (this.next != null) {
+			String filename = this.mIndexList.get(rowIndex).getLink();
+			this.next.show(filename);
+			System.out.println(filename);
+		}
+	}
+
 	public JTable getTable() {
 		return this.table;
 	}
+
 	public DefaultTableModel getTableModel() {
 		return this.model;
+	}
+
+	public class ListSelectionHandler implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent e) {
+			if (!e.getValueIsAdjusting()) {
+				int row = table.getSelectedRow();
+				if (row >= 0) {
+					showNext(row);
+				}
+			}
+		}
+
 	}
 
 }
