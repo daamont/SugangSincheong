@@ -20,13 +20,16 @@ public class VIndexPanel extends JPanel {
 		LayoutManager layoutManager = new BoxLayout(this, BoxLayout.X_AXIS);
 		this.setLayout(layoutManager);
 
-		this.vCampus = new VIndexTable(new String[] {"아이디", "캠퍼스"});
+//		this.vCampus = new VIndexTable(new String[] {"아이디", "캠퍼스"});
+		this.vCampus = new VIndexTable();
 		this.add(vCampus);
 
-		this.vCollege = new VIndexTable(new String[] {"아이디","대학"});
+//		this.vCollege = new VIndexTable(new String[] {"아이디","대학"});
+		this.vCollege = new VIndexTable();
 		this.add(vCollege);
 
-		this.vDepartment = new VIndexTable(new String[] {"아이디","학과"});
+//		this.vDepartment = new VIndexTable(new String[] {"아이디","학과"});
+		this.vDepartment = new VIndexTable();
 		this.add(vDepartment);
 		
 

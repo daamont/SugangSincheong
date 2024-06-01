@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import Constants.Constant.IndexTable;
 import control.CIndex;
 import control.CLecture;
 import model.MIndex;
@@ -27,18 +28,33 @@ public class VLectureTable extends VIndexTable{
 	// components
 	private Vector<MLecture> mLectureList;
 
+//	private String[] header;
+
 	public VLectureTable(String[] header) {
-		super(header);
+		super();
 		// 모델만들고 다 해야 함
 		// model
 		// associate
 		// get data
+//		this.model = new DefaultTableModel(null, header);
 		this.mLectureList = new Vector<MLecture>();
 		}
 
 	public void initialize() {
 
 	}
+	
+	public String[] setHeader() {
+		String [] header = getHeader();
+		header = new String[] {IndexTable.EHeader.eId.getTitle(), 
+				IndexTable.EHeader.eLectureName.getTitle(),
+				IndexTable.EHeader.eProfessor.getTitle(),
+				IndexTable.EHeader.eCredit.getTitle(),
+				IndexTable.EHeader.eTime.getTitle()
+				};
+		return header;
+	}
+	
 
 	public void show(String filename) {
 		CLecture cLecture = new CLecture();

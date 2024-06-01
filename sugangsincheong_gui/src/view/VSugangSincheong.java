@@ -35,7 +35,7 @@ public class VSugangSincheong extends JPanel {
         this.vControlPanel1 = new VControlPanel();
         this.add(this.vControlPanel1);
 
-        this.vMiridamgiTable = new VLectureTable(new String[] { "아이", "강의명","교수명","학점","시간" });
+        this.vMiridamgiTable = new VLectureTable(new String[] { "아이디", "강의명","교수명","학점","시간" });
 
         this.add(vMiridamgiTable);       
 

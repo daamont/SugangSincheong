@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicListUI.ListSelectionHandler;
 import javax.swing.table.DefaultTableModel;
 
+import Constants.Constant.IndexTable;
+import Constants.Constant.IndexTable.EHeader;
 import control.CIndex;
 import model.MIndex;
 import model.MLecture;
@@ -19,23 +21,24 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 
 	// components
 	private JTable table;
-	private DefaultTableModel model;
+	protected DefaultTableModel model;
 
 	// associations
 	private IIndexTable next;
 
 	private Vector<MIndex> mIndexList;
-
+	private String[] header;
 
 	// methods
-	public VIndexTable(String[] header) {
+	public VIndexTable() {
 		// components
 		// table
 		this.table = new JTable();
 		this.setViewportView(this.table); // 이 함수를 써서 자식을 만듦
-
+		
+//		String[] header = {IndexTable.EHeader.eId.getTitle(), IndexTable.EHeader.eTitle.getTitle() };
 		// model
-		this.model = new DefaultTableModel(null, header);
+		this.model = new DefaultTableModel(null, setHeader());
 
 		// associate
 		this.table.setModel(model);
@@ -44,7 +47,16 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 		this.table.getSelectionModel().addListSelectionListener(listSelectionHandler);
 		this.mIndexList = new Vector<MIndex>();
 	}
-
+	
+	public String[] setHeader() {
+		header = new String[] {IndexTable.EHeader.eId.getTitle(), IndexTable.EHeader.eTitle.getTitle() };
+		return header;
+	}
+	
+	public String[] getHeader() {
+		return header;
+	}
+ 
 	public void setNext(IIndexTable next) {
 		this.next = next;
 	}
