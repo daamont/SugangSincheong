@@ -36,7 +36,6 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 		this.table = new JTable();
 		this.setViewportView(this.table); // 이 함수를 써서 자식을 만듦
 		
-//		String[] header = {IndexTable.EHeader.eId.getTitle(), IndexTable.EHeader.eTitle.getTitle() };
 		// model
 		this.model = new DefaultTableModel(null, setHeader());
 

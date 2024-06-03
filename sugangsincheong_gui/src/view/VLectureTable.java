@@ -1,25 +1,15 @@
 package view;
 
-import java.awt.event.ActionEvent;
-
 import java.util.Vector;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+import view.VIndexTable.ListSelectionHandler;
 
 import Constants.Constant.IndexTable;
-import control.CIndex;
 import control.CLecture;
-import model.MIndex;
 import model.MLecture;
-import view.VIndexTable.ListSelectionHandler;
-//import view.VLectureTable.MouseHandler;
 
 public class VLectureTable extends VIndexTable{
 
@@ -30,13 +20,12 @@ public class VLectureTable extends VIndexTable{
 
 //	private String[] header;
 
-	public VLectureTable(String[] header) {
+	public VLectureTable() {
 		super();
 		// 모델만들고 다 해야 함
 		// model
 		// associate
 		// get data
-//		this.model = new DefaultTableModel(null, header);
 		this.mLectureList = new Vector<MLecture>();
 		}
 
@@ -75,17 +64,17 @@ public class VLectureTable extends VIndexTable{
 		}
 	}
 	
-	public class ListSelectionHandler implements ListSelectionListener {
-		public void valueChanged(ListSelectionEvent e) {
-			if (!e.getValueIsAdjusting()) {
-				int row = getTable().getSelectedRow();				
-				showNext(row);
-				System.out.println("강의 선택까지 했으니 이제 미리담기로");
-			}
-//			int row = e.getFirstIndex(); //용인이야 서울이야 물어보기
-//			showNext(row);
-		}
-	}
+//	public class ListSelectionHandler implements ListSelectionListener {
+//		public void valueChanged(ListSelectionEvent e) {
+//			if (!e.getValueIsAdjusting()) {
+//				int row = getTable().getSelectedRow();				
+//				showNext(row);
+//				System.out.println("강의 선택까지 했으니 이제 미리담기로");
+//			}
+////			int row = e.getFirstIndex(); //용인이야 서울이야 물어보기
+////			showNext(row);
+//		}
+//	}
 	public Vector<MLecture> getSelectedList() {
 		int[] selectedIndies = getTable().getSelectedRows();
 		Vector<MLecture> selectedList = new Vector<MLecture>();

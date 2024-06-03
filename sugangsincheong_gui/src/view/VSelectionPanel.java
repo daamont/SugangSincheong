@@ -22,14 +22,13 @@ public class VSelectionPanel extends JPanel {
 		LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layoutManager);
 		
-		this.vLectureTable = new VLectureTable(new String[] {"아이디", "강의명","교수명","학점","시간" });
+		this.vLectureTable = new VLectureTable();
 		this.vIndexPanel = new VIndexPanel();
 		
 		this.add(this.vIndexPanel);	
 		this.add(this.vLectureTable);
 		
 		this.vIndexPanel.associate(this.vLectureTable);
-//		this.vLectureTable.associate(this.vMiridamgi);
 
 	}
 

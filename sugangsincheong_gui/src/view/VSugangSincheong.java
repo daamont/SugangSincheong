@@ -35,14 +35,14 @@ public class VSugangSincheong extends JPanel {
         this.vControlPanel1 = new VControlPanel();
         this.add(this.vControlPanel1);
 
-        this.vMiridamgiTable = new VLectureTable(new String[] { "아이디", "강의명","교수명","학점","시간" });
+        this.vMiridamgiTable = new VLectureTable();
 
         this.add(vMiridamgiTable);       
 
         this.vControlPanel2 = new VControlPanel();
         this.add(this.vControlPanel2);
 
-        this.vSingcheongTable = new VLectureTable(new String[] { "아이디", "강의명","교수명","학점","시간" });
+        this.vSingcheongTable = new VLectureTable();
         this.add(vSingcheongTable);
         
         this.vControlPanel1.associate(vSelectionPanel.getLectureTable(), vMiridamgiTable); //버튼이 눌려지면 데이터가 옮겨지는 일 만들
