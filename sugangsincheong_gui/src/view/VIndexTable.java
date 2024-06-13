@@ -14,7 +14,7 @@ import Constants.Constant.IndexTable.EHeader;
 import control.CCampus;
 import control.CCollege;
 import control.CDepartment;
-import control.CIndex;
+//import control.CIndex;
 import control.CLecture;
 import model.MCampus;
 import model.MCollege;
