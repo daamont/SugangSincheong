@@ -11,11 +11,18 @@ import javax.swing.table.DefaultTableModel;
 
 import Constants.Constant.IndexTable;
 import Constants.Constant.IndexTable.EHeader;
+import control.CCampus;
+import control.CCollege;
+import control.CDepartment;
 import control.CIndex;
+import control.CLecture;
+import model.MCampus;
+import model.MCollege;
+import model.MDepartment;
 import model.MIndex;
 import model.MLecture;
 
-public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 자식이 table과 model이 있
+public class VIndexTable extends JScrollPane implements IIndexTable { // 안에 자식이 table과 model이 있
 	// attributes
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +33,9 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 	// associations
 	private IIndexTable next;
 
-	private Vector<MIndex> mIndexList;
+	private Vector<MCampus> mCampusList;
+	private Vector<MCollege> mCollegeList;
+	private Vector<MDepartment> mDepartmentList;
 	private String[] header;
 
 	// methods
@@ -35,7 +44,7 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 		// table
 		this.table = new JTable();
 		this.setViewportView(this.table); // 이 함수를 써서 자식을 만듦
-		
+
 		// model
 		this.model = new DefaultTableModel(null, setHeader());
 
@@ -44,56 +53,76 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 
 		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
 		this.table.getSelectionModel().addListSelectionListener(listSelectionHandler);
-		this.mIndexList = new Vector<MIndex>();
+		this.mCampusList = new Vector<MCampus>();
+		this.mCollegeList = new Vector<MCollege>();
+		this.mDepartmentList = new Vector<MDepartment>();
 	}
-	
+
 	public String[] setHeader() {
-		header = new String[] {IndexTable.EHeader.eId.getTitle(), IndexTable.EHeader.eTitle.getTitle() };
+		header = new String[] { IndexTable.EHeader.eId.getTitle(), IndexTable.EHeader.eTitle.getTitle() };
 		return header;
 	}
-	
+
 	public String[] getHeader() {
 		return header;
 	}
- 
+
 	public void setNext(IIndexTable next) {
 		this.next = next;
 	}
 	
-	public void show(String fileName) {
-		// get data
-		CIndex cINdex = new CIndex();
-		mIndexList = cINdex.getList(fileName); // CCampus에게 전달해서 MCampus에게 전달
-		this.model.setRowCount(0);
+	public void show(int id, String type) {
+        this.model.setRowCount(0);
+        switch (type) {
+            case "campus":
+                CCampus cCampus = new CCampus();
+                mCampusList = cCampus.getList();
+                for (MCampus mCampus : mCampusList) {
+                    String[] row = new String[2];
+                    row[0] = String.valueOf(mCampus.getCampusNumber());
+                    row[1] = mCampus.getName();
+                    this.model.addRow(row);
+                }
+                break;
 
-		for (MIndex mIndex : mIndexList) {
-			String[] row = new String[2];
-			row[0] = String.valueOf(mIndex.getId());
-			row[1] = mIndex.getName();
+            case "college":
+                CCollege cCollege = new CCollege();
+                this.mCollegeList = cCollege.getList(id);
+                for (MCollege mCollege : mCollegeList) {
+                    String[] row = new String[2];
+                    row[0] = String.valueOf(mCollege.getCollegeNumber());
+                    row[1] = mCollege.getName();
+                    this.model.addRow(row);
+                }
+                break;
 
-			this.model.addRow(row);
+            case "department":
+                CDepartment cDepartment = new CDepartment();
+                mDepartmentList = cDepartment.getList(id);
+                for (MDepartment mDepartment : mDepartmentList) {
+                    String[] row = new String[2];
+                    row[0] = String.valueOf(mDepartment.getDepartmentNumber());
+                    row[1] = mDepartment.getName();
+                    this.model.addRow(row);
+                }
+                break;
 
-		}
-	}
-
-	public void initialize() {
-
-	}
+            default:
+                throw new IllegalArgumentException("Invalid entity type: " + type);
+        }
+    }
 
 	public void showNext(int rowIndex) {
-		if (this.next != null) {
-			String filename = this.mIndexList.get(rowIndex).getLink();
-			this.next.show(filename);
-			System.out.println(filename);
+		if (!mCampusList.isEmpty()) {
+			int campusNumber = this.mCampusList.get(rowIndex).getCampusNumber();
+			this.next.show(campusNumber, "college");
+		} else if (!mCollegeList.isEmpty()) {
+			int collegeNumber = mCollegeList.get(rowIndex).getCollegeNumber();
+			this.next.show(collegeNumber, "department");
+		} else if (!mDepartmentList.isEmpty()) {
+			int departmentNumber = mDepartmentList.get(rowIndex).getDepartmentNumber();
+			this.next.show(departmentNumber, "lecture");
 		}
-	}
-
-	public JTable getTable() {
-		return this.table;
-	}
-
-	public DefaultTableModel getTableModel() {
-		return this.model;
 	}
 
 	public class ListSelectionHandler implements ListSelectionListener {
@@ -106,6 +135,18 @@ public class VIndexTable extends JScrollPane implements IIndexTable{ // 안에 �
 			}
 		}
 
+	}
+
+	public void initialize() {
+
+	}
+
+	public JTable getTable() {
+		return this.table;
+	}
+
+	public DefaultTableModel getTableModel() {
+		return this.model;
 	}
 
 }

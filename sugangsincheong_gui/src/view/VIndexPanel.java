@@ -20,15 +20,12 @@ public class VIndexPanel extends JPanel {
 		LayoutManager layoutManager = new BoxLayout(this, BoxLayout.X_AXIS);
 		this.setLayout(layoutManager);
 
-//		this.vCampus = new VIndexTable(new String[] {"아이디", "캠퍼스"});
 		this.vCampus = new VIndexTable();
 		this.add(vCampus);
 
-//		this.vCollege = new VIndexTable(new String[] {"아이디","대학"});
 		this.vCollege = new VIndexTable();
 		this.add(vCollege);
 
-//		this.vDepartment = new VIndexTable(new String[] {"아이디","학과"});
 		this.vDepartment = new VIndexTable();
 		this.add(vDepartment);
 		
@@ -45,7 +42,7 @@ public class VIndexPanel extends JPanel {
 		this.vCollege.initialize();
 		this.vDepartment.initialize();
 
-		this.vCampus.show("root"); // 자기가 자기친구한데 그리라고 해야함. 어떤 파일을 그려야할지 주어야 함
+		this.vCampus.show(0, "campus"); // 자기가 자기친구한데 그리라고 해야함. 어떤 파일을 그려야할지 주어야 함
 		
 	}
 

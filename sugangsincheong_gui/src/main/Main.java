@@ -1,16 +1,16 @@
 package main;
 
+import view.VLoginDialog;
 import view.VMainFrame;
 
 public class Main {
-	private VMainFrame vMainFrame;
 	
 	public Main() {
-		this.vMainFrame = new VMainFrame();
-		this.vMainFrame.setVisible(true);
+		VLoginDialog loginDialog = new VLoginDialog();
+		loginDialog.setVisible(true);
+		
 	}
 	public void initialize() {
-		this.vMainFrame.initailize();
 	}
 	public void run() {
 	}

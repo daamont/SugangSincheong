@@ -2,21 +2,23 @@ package model;
 
 public class MLecture {
 
-	public MLecture() {
-		// TODO Auto-generated constructor stub
-	}
-	private int id;
+	private int lectureNumber;
 	private String name;
 	private String professor;
 	private int credit;
 	private String time;
-	
-	public int getId() {
-		return id;
+	private int departmentNumber;
+
+	public MLecture() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getLectureNumber() {
+		return lectureNumber;
+	}
+
+	public void setLectureNumber(int lectureNumber) {
+		this.lectureNumber = lectureNumber;
 	}
 
 	public String getName() {
@@ -51,4 +53,12 @@ public class MLecture {
 		this.time = time;
 	}
 
+	public int getDepartmentNumber() {
+		return departmentNumber;
+	}
+
+	public void setDepartmentNumber(int departmentNumber) {
+		this.departmentNumber = departmentNumber;
+	}
+	
 }

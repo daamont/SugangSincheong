@@ -16,8 +16,6 @@ public class VSelectionPanel extends JPanel {
 	private VIndexPanel vIndexPanel;
 	private VLectureTable vLectureTable;
 
-	private VLectureTable vMiridamgi;
-
 	public VSelectionPanel() {
 		LayoutManager layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layoutManager);

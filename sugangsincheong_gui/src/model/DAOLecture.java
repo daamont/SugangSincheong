@@ -1,54 +1,65 @@
 package model;
 
-import java.util.Scanner;
 import java.util.Vector;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DAOLecture {
+	
+	private MLecture mLecture;
 
 	public DAOLecture() {
-		this.mDepartment = new MDepartment();
+		this.mLecture = new MLecture();
 	}
 
-	private MDepartment mDepartment;
-
-	public Vector<model.MLecture> getList(String filename) {
+	public Vector<MLecture> getList() {
 		
 		Vector<MLecture> mLectureList = new Vector<MLecture>();
+		DatabaseManager dbm = new DatabaseManager();
 
+		String query = "SELECT * FROM lecture;";
+		ResultSet result = dbm.getQueryResult(query);
 		try {
-			File file = new File("data/"+filename+".txt");
-//			File file = new File("data/"+mDepartment.getLink());
-			Scanner scr = new Scanner(file);
-			while (scr.hasNextLine()) {
-				// deserialize
-				String line = scr.nextLine();
-				String[] wordList = line.split(" ");
-
-				MLecture mLecture = new MLecture();
-				mLecture.setId(Integer.parseInt(wordList[0]));
-				mLecture.setName(wordList[1]);
-				mLecture.setProfessor(wordList[2]);
-				mLecture.setCredit(Integer.parseInt(wordList[3]));
-				mLecture.setTime(wordList[4]);
-//				System.out.println(wordList[1]);
+			while (result.next()) {
+				mLecture = new MLecture();
+				
+				mLecture.setLectureNumber(result.getInt(1));
+				mLecture.setName(result.getString(2));
+				mLecture.setProfessor(result.getString(3));
+				mLecture.setCredit(result.getInt(4));
+				mLecture.setTime(result.getString(5));
 
 				mLectureList.add(mLecture);
 
 			}
-			scr.close();
-		} catch (FileNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return mLectureList;
 
 	}
 
-	public Vector<MLecture> getListByDepartment(int dpartId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Vector<MLecture> getList(int departmentNumber) {
+		Vector<MLecture> mLectureList = new Vector<MLecture>();
+        DatabaseManager dbm = new DatabaseManager();
+
+        String query = "SELECT * FROM lecture WHERE department_number = " + departmentNumber + ";";
+        ResultSet result = dbm.getQueryResult(query);
+        try {
+            while (result.next()) {
+                mLecture = new MLecture();
+                mLecture.setLectureNumber(result.getInt(1));
+                mLecture.setName(result.getString(2));
+                mLecture.setProfessor(result.getString(3));
+                mLecture.setCredit(result.getInt(4));
+                mLecture.setTime(result.getString(5));
+                mLectureList.add(mLecture);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mLectureList;
+    }
 
 }

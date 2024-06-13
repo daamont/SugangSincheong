@@ -13,9 +13,9 @@ public class CIndex {
 		this.daoIndex = new DAOIndex();
 	}
 
-	public Vector<MIndex> getList(String fileName) {
+	public Vector<MIndex> getList() {
 		this.daoIndex = new DAOIndex();
-		Vector<MIndex> mIndexList = this.daoIndex.getList(fileName);
+		Vector<MIndex> mIndexList = this.daoIndex.getList();
 		//mCampusList는 vo
 		return mIndexList;
 
